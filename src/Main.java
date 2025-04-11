@@ -22,6 +22,8 @@ public class Main {
         // Exibindo a matriz de adjacência
         grafo.exibirMatrizAdjacente();
 
-        grafo.buscarVizinhos(2);
+        grafo.buscarVizinho(2);
+        grafo.listaOrdenadaVizinho(2);
+
     }
 }
