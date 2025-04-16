@@ -8,12 +8,12 @@ public class Grafo {
 
     public Grafo(int capacidade) {
         this.tamanho = 0;
-        matrizAdjacente = new float[this.tamanho][this.tamanho];
+        matrizAdjacente = new float[capacidade][capacidade];
         vertices = new String[capacidade];
 
         // Inicializa a matriz com -1 (indica que não há conexão entre os vértices)
-        for (int i = 0; i < this.tamanho; i++) {
-            for (int j = 0; j < this.tamanho; j++) {
+        for (int i = 0; i < capacidade; i++) {
+            for (int j = 0; j < capacidade; j++) {
                 matrizAdjacente[i][j] = -1;
             }
         }
@@ -55,31 +55,18 @@ public class Grafo {
         }
     }
 
-    public void buscarVizinho(int indice) {
+    public int contarVizinhos(int indice) {
         int cont = 0;
         for (int j = 0; j < vertices.length; j++) {
-            if (matrizAdjacente[indice][j] != -1) {
+            if (j != indice && matrizAdjacente[indice][j] != -1) {
                 cont++;
             }
         }
-        if (cont > 0) {
-            System.out.println("A quantidade de vizinhos do vertece " + vertices[indice] + " é " + cont);
-        } else {
-            System.out.println("não tem vizinhos");
-        }
+        return cont;
     }
 
     public void listaOrdenadaVizinho(int indice) {
-        int cont = 0;
-        for (int i = 0; i < vertices.length; i++) {
-            if (matrizAdjacente[indice][i] != -1) {
-                cont++;
-            }
-        }
-        if (cont == 0) {
-            System.out.println("Não tem vizinhos");
-            return;
-        }
+        int cont = contarVizinhos(indice);
 
         float[] distancia = new float[cont];
         int[] vizinhos = new int[cont];

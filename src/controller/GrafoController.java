@@ -24,4 +24,10 @@ public class GrafoController {
         view.mostrarMatrizAdjacente(grafo.getMatrizAdjacente(), grafo.getTamanho());
     }
 
+    public void buscarVizinho(int indice) {
+        int quantidade = grafo.contarVizinhos(indice);
+        String nome = grafo.getVertices()[indice];
+        view.exibirQuantidadeVizinhos(nome, quantidade);
+    }
+
 }
