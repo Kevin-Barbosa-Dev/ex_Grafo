@@ -1,6 +1,7 @@
 package controller;
 
 import model.Grafo;
+import model.Vizinho;
 import view.GrafoView;
 
 public class GrafoController {
@@ -28,6 +29,15 @@ public class GrafoController {
         int quantidade = grafo.contarVizinhos(indice);
         String nome = grafo.getVertices()[indice];
         view.exibirQuantidadeVizinhos(nome, quantidade);
+    }
+
+    public void listaVizinhosOrdenados(int indice) {
+        Vizinho[] vizinhos = grafo.getVizinhosOrdenados(indice);
+        String nome = grafo.getVertices()[indice];
+        view.tituloOrdem(nome);
+        for (Vizinho v : vizinhos) {
+            view.exibirListaOrdenadaDeVizinhos(nome, vizinhos, v.getNome(), v.getDistancia());
+        }
     }
 
 }

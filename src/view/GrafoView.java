@@ -1,5 +1,7 @@
 package view;
 
+import model.Vizinho;
+
 public class GrafoView {
 
     public void mostrarMatrizAdjacente(float[][] matrix, int size) {
@@ -22,6 +24,19 @@ public class GrafoView {
         } else {
             System.out.println("O vértice " + nomeVertice + " não tem vizinhos.");
         }
+    }
+
+    public void exibirListaOrdenadaDeVizinhos(String nomeVertice, Vizinho[] vizinhos, String nomeLugar,
+            float distancia) {
+        if (vizinhos.length == 0) {
+            System.out.println("O vértice " + nomeVertice + " não tem vizinhos.");
+            return;
+        }
+        System.out.println("Vizinho: " + nomeLugar + " - Distância: " + distancia);
+    }
+
+    public void tituloOrdem(String nomeVertice) {
+        System.out.println("Vizinhos de " + nomeVertice + " em ordem crescente de distância:");
     }
 
 }

@@ -46,9 +46,7 @@ public class Main {
         controller.adicionarAresta(9, 8, 10.4f);
         controller.adicionarAresta(9, 10, 12.9f);
         controller.adicionarAresta(10, 9, 12.9f);
-        controller.exibirMatrizAdjacente();
 
-        controller.buscarVizinho(10);
-
+        controller.listaVizinhosOrdenados(9);
     }
 }

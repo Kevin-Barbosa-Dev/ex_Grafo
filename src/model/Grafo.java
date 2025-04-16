@@ -65,40 +65,23 @@ public class Grafo {
         return cont;
     }
 
-    public void listaOrdenadaVizinho(int indice) {
+    public Vizinho[] getVizinhosOrdenados(int indice) {
         int cont = contarVizinhos(indice);
 
-        float[] distancia = new float[cont];
-        int[] vizinhos = new int[cont];
+        if (cont == 0) {
+            return new Vizinho[0];
+        }
 
+        Vizinho[] vizinhos = new Vizinho[cont];
         int index = 0;
+
         for (int i = 0; i < vertices.length; i++) {
-            if (matrizAdjacente[indice][i] != -1) {
-                distancia[index] = matrizAdjacente[indice][i];
-                vizinhos[index] = i;
-                index++;
+            if (i != indice && matrizAdjacente[indice][i] != -1) {
+                vizinhos[index++] = new Vizinho(vertices[i], matrizAdjacente[indice][i]);
             }
         }
 
-        for (int i = 0; i < distancia.length - 1; i++) {
-            for (int j = 0; j < distancia.length - 1 - i; j++) {
-                if (distancia[j] > distancia[j + 1]) {
-                    // troca as distancias
-                    float maior = distancia[j];
-                    distancia[j] = distancia[j + 1];
-                    distancia[j + 1] = maior;
-
-                    // troca os indices dos vizinhos
-                    int maiorVizinho = vizinhos[j];
-                    vizinhos[j] = vizinhos[j + 1];
-                    vizinhos[j + 1] = maiorVizinho;
-                }
-            }
-        }
-        System.out.println("Vizinhos e suas distâncias (em ordem crescente):");
-        for (int i = 0; i < distancia.length; i++) {
-            System.out.println("Vizinho: " + vertices[vizinhos[i]] + " - Distância: " + distancia[i]);
-        }
+        return vizinhos;
     }
 
     public String[] getVertices() {
