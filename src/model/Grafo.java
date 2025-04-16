@@ -1,18 +1,15 @@
 package model;
 
-import java.util.Scanner;
-
 public class Grafo {
 
-   private int[][] matrizAdjacente;
+    private float[][] matrizAdjacente;
     private String[] vertices;
     private int tamanho;
 
-    // Construtor que inicializa a matriz de adjacência
-    public Grafo(int tamanho) {
-        this.tamanho = tamanho;
-        matrizAdjacente = new int[this.tamanho][this.tamanho];
-        vertices = new String[this.tamanho];
+    public Grafo(int capacidade) {
+        this.tamanho = 0;
+        matrizAdjacente = new float[this.tamanho][this.tamanho];
+        vertices = new String[capacidade];
 
         // Inicializa a matriz com -1 (indica que não há conexão entre os vértices)
         for (int i = 0; i < this.tamanho; i++) {
@@ -22,23 +19,21 @@ public class Grafo {
         }
     }
 
-    // Método para adicionar um vértice ao grafo
     public void adicionarVertice(int indice, String nome) {
+
         if (indice >= 0 && indice < vertices.length) {
             vertices[indice] = nome;
+            tamanho++;
         }
     }
 
-    // Método para adicionar uma aresta com uma distância entre dois vértices
-    public void adicionarAresta(int origem, int destino, int distancia) {
+    public void adicionarAresta(int origem, int destino, float distancia) { // Alterado para float
         if (origem >= 0 && origem < matrizAdjacente.length && destino >= 0 && destino < matrizAdjacente.length) {
             matrizAdjacente[origem][destino] = distancia;
-            matrizAdjacente[destino][origem] = distancia; // Para grafo não-direcionado
-            //não é interesante adicionar um metodo para não permetir que seja gerado uma aresta = origem origem.
+            matrizAdjacente[destino][origem] = distancia;
         }
     }
 
-    // Método para exibir a matriz de adjacência
     public void exibirMatrizAdjacente() {
         System.out.println("Matriz de Adjacência:");
         System.out.print("     ");
@@ -59,8 +54,7 @@ public class Grafo {
             System.out.println();
         }
     }
-    //nova linha
-    // vai me informar quandos vizinhos cada vertece tem
+
     public void buscarVizinho(int indice) {
         int cont = 0;
         for (int j = 0; j < vertices.length; j++) {
@@ -69,28 +63,26 @@ public class Grafo {
             }
         }
         if (cont > 0) {
-            System.out.println("A quantidade de vizinhos do vertece "+vertices[indice]+" é " + cont);
-        }else{
+            System.out.println("A quantidade de vizinhos do vertece " + vertices[indice] + " é " + cont);
+        } else {
             System.out.println("não tem vizinhos");
         }
     }
-    // Metodo mostrar vizinhos com base na distancia de forma ordenada
+
     public void listaOrdenadaVizinho(int indice) {
-        //quantidade de vizinhos
         int cont = 0;
         for (int i = 0; i < vertices.length; i++) {
             if (matrizAdjacente[indice][i] != -1) {
                 cont++;
             }
         }
-        if(cont == 0){
+        if (cont == 0) {
             System.out.println("Não tem vizinhos");
             return;
         }
 
-        //for ordenador de distancias
-        int[] distancia = new int[cont];//vou armazenar as distancias
-        int[] vizinhos = new int[cont];// indice do vizinho
+        float[] distancia = new float[cont];
+        int[] vizinhos = new int[cont];
 
         int index = 0;
         for (int i = 0; i < vertices.length; i++) {
@@ -100,19 +92,19 @@ public class Grafo {
                 index++;
             }
         }
-        //ordenar as entradas
-        for(int i = 0; i < distancia.length -1; i++) {//controle
-            for(int j = 0; j < distancia.length -1 -i; j++) {//ordenar a lista
-                if(distancia[j] > distancia[j +1]){
-                    //troca as distancias
-                    int maior = distancia[j];
-                    distancia[j] = distancia[j+1];
-                    distancia[j+1] = maior;
 
-                    //troca os indices dos vizinhos
+        for (int i = 0; i < distancia.length - 1; i++) {
+            for (int j = 0; j < distancia.length - 1 - i; j++) {
+                if (distancia[j] > distancia[j + 1]) {
+                    // troca as distancias
+                    float maior = distancia[j];
+                    distancia[j] = distancia[j + 1];
+                    distancia[j + 1] = maior;
+
+                    // troca os indices dos vizinhos
                     int maiorVizinho = vizinhos[j];
-                    vizinhos[j] = vizinhos[j+1];
-                    vizinhos[j+1] = maiorVizinho;
+                    vizinhos[j] = vizinhos[j + 1];
+                    vizinhos[j + 1] = maiorVizinho;
                 }
             }
         }
@@ -121,4 +113,17 @@ public class Grafo {
             System.out.println("Vizinho: " + vertices[vizinhos[i]] + " - Distância: " + distancia[i]);
         }
     }
+
+    public String[] getVertices() {
+        return vertices;
+    }
+
+    public float[][] getMatrizAdjacente() {
+        return matrizAdjacente;
+    }
+
+    public int getTamanho() {
+        return tamanho;
+    }
+
 }
